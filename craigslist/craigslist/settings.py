@@ -116,8 +116,13 @@ FEED_EXPORT_FIELDS = ['url','title', 'price', 'year','make','model','condition',
 'transimission','type','latitude','longitude','description']
 
 CRAWLERA_ENABLED = True
-CRAWLERA_APIKEY = '5d480ec678dc4b72b8a3e780dbc68934'
+CRAWLERA_APIKEY = '84bd6b9938df41ac938d54db7d4ec50f'
 CRAWLERA_PRESERVE_DELAY = True
 DEFAULT_REQUEST_HEADERS = {
   'X-Crawlera-Cookies': 'disable'
 }
+
+MONGODB_SERVER = 'localhost'
+MONGODB_PORT = 27017
+MONGODB_DB = 'taobao'
+MONGODB_COLLECTION = 'goods'

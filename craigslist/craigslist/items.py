@@ -5,10 +5,26 @@
 # See documentation in:
 # http://doc.scrapy.org/en/latest/topics/items.html
 
-import scrapy
+from scrapy import Item, Field
 
 
-class CraigslistItem(scrapy.Item):
+class CraigslistItem(Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    pass
+    url = Field()
+    title = Field()
+    price = Field()
+    year = Field()
+    make = Field()
+    model = Field()
+    condition = Field()
+    cylinder = Field()
+    fuel = Field()
+    odometer = Field()
+    size = Field()
+    title_status = Field()
+    transimission = Field()
+    type = Field()
+    latitude = Field()
+    longitude = Field()
+    description = Field()

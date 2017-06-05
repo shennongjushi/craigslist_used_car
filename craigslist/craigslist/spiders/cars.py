@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
-import scrapy
+
+from scrapy import Spider
 from scrapy import Request
+from craigslist.items import CraigslistItem
+import json
 
-
-class CarsSpider(scrapy.Spider):
+class CarsSpider(Spider):
     name = 'cars'
     allowed_domains = ['craigslist.org']
     start_urls = ['https://austin.craigslist.org/search/cta/']
@@ -15,8 +17,6 @@ class CarsSpider(scrapy.Spider):
             price = job.xpath('span[@class="result-meta"]/span[@class="result-price"]/text()').extract_first("")
             relative_url = job.xpath('a/@href').extract_first()
             absolute_url = response.urljoin(relative_url)
-            #print (absolute_url)
-            #yield{'URL':absolute_url, 'Title':title, 'Price':price}
             yield Request(absolute_url, callback=self.parse_page, meta={'URL':absolute_url, 'Title':title, 'Price':price})
         relative_next_url = response.xpath('//a[@class="button next"]/@href').extract_first()
         absolute_next_url = response.urljoin(relative_next_url)
@@ -49,23 +49,24 @@ class CarsSpider(scrapy.Spider):
         type = response.xpath('//p[@class="attrgroup"]/span[contains(text(),"type")]/b/text()').extract_first("")
         latitude = response.xpath('//*[@class="viewposting"]/@data-latitude').extract_first("")
         longitude = response.xpath('//*[@class="viewposting"]/@data-longitude').extract_first("")
-        yield {
-            'url':url,
-            'title':title,
-            'price':price,
-            'year':year,
-            'make':make,
-            'model':model,
-            'condition':condition,
-            'cylinder':cylinder,
-            'fuel':fuel,
-            'odometer':odometer,
-            'size':size,
-            'title_status':title_status,
-            'transimission':transmission,
-            'type':type,
-            'latitude':latitude,
-            'longitude':longitude,
-            'description':description,
-        }
+        
+        item = CraigslistItem()
+        item['url'] = url
+        item['title'] = title
+        item['price'] = price
+        item['year'] = year
+        item['make'] = make
+        item['model'] = model
+        item['condition'] = condition
+        item['cylinder'] = cylinder
+        item['fuel'] = fuel
+        item['odometer'] = odometer
+        item['size'] = size
+        item['title_status'] = title_status
+        item['transimission'] = transmission
+        item['type'] = type
+        item['latitude'] = latitude
+        item['longitude'] = longitude
+        item['description'] = description
+        yield item
         
