@@ -7,7 +7,7 @@
 import pymongo
 from scrapy import log
 #from scrapy import DropItem
-import settings
+from scrapy.conf import settings
 
 class CraigslistPipeline(object):
     def open_spider(self, spider):
@@ -22,6 +22,7 @@ class CraigslistPipeline(object):
         self.connection.close()
  
     def process_item(self, item, spider):
-        self.collection.insert(dict(item))
+        #self.collection.insert(dict(item))
+        self.collection.insert(dict((k,v) for k, v in item.items() if v))
         log.msg('Added to database!',level=log.DEBUG, spider=spider)
         return item

@@ -14,6 +14,9 @@ BOT_NAME = 'craigslist'
 SPIDER_MODULES = ['craigslist.spiders']
 NEWSPIDER_MODULE = 'craigslist.spiders'
 
+ITEM_PIPELINES = {
+    'craigslist.pipelines.CraigslistPipeline': 300,
+}
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENTS = [
@@ -44,7 +47,7 @@ PROXIES = [
 	{'ip_port': '116.226.69.141:9797', 'user_pass': ''},
 ]
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -113,7 +116,7 @@ DOWNLOADER_MIDDLEWARES = {
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 FEED_EXPORT_FIELDS = ['url','title', 'price', 'year','make','model','condition','cylinder','fuel','odometer','size','title_status',
-'transimission','type','latitude','longitude','description']
+'transimission','type','latitude','longitude','description','image']
 
 CRAWLERA_ENABLED = True
 CRAWLERA_APIKEY = '84bd6b9938df41ac938d54db7d4ec50f'
@@ -124,5 +127,5 @@ DEFAULT_REQUEST_HEADERS = {
 
 MONGODB_SERVER = 'localhost'
 MONGODB_PORT = 27017
-MONGODB_DB = 'taobao'
-MONGODB_COLLECTION = 'goods'
+MONGODB_DB = 'craigslist'
+MONGODB_COLLECTION = 'cars'

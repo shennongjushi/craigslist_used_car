@@ -49,24 +49,41 @@ class CarsSpider(Spider):
         type = response.xpath('//p[@class="attrgroup"]/span[contains(text(),"type")]/b/text()').extract_first("")
         latitude = response.xpath('//*[@class="viewposting"]/@data-latitude').extract_first("")
         longitude = response.xpath('//*[@class="viewposting"]/@data-longitude').extract_first("")
+        image = response.xpath('//div[@class="slide first visible"]/img/@src').extract_first("")
         
         item = CraigslistItem()
         item['url'] = url
         item['title'] = title
-        item['price'] = price
-        item['year'] = year
+        try:
+            item['price'] = int(price)
+        except:
+            pass
+        try:
+            item['year'] = int(year)
+        except:
+            pass
         item['make'] = make
         item['model'] = model
         item['condition'] = condition
         item['cylinder'] = cylinder
         item['fuel'] = fuel
-        item['odometer'] = odometer
+        try:
+            item['odometer'] = int(odometer.strip().replace(',',''))
+        except:
+            pass
         item['size'] = size
         item['title_status'] = title_status
         item['transimission'] = transmission
         item['type'] = type
-        item['latitude'] = latitude
-        item['longitude'] = longitude
+        try:
+            item['latitude'] = float(latitude)
+        except:
+            pass
+        try:
+            item['longitude'] = float(longitude)
+        except:
+            pass
         item['description'] = description
+        item['image'] = image
         yield item
         

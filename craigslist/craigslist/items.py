@@ -28,3 +28,4 @@ class CraigslistItem(Item):
     latitude = Field()
     longitude = Field()
     description = Field()
+    image = Field()
